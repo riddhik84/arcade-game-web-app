@@ -72,11 +72,11 @@ Player.prototype.handleInput = function(direction) {
     if(direction == 'right' && this.x < 400) {
         this.x += 50;
     }
-    if(direction == 'up' && this.y > 3) {
-        this.y -= 50;
+    if(direction == 'up' && this.y > 0) {
+        this.y -= 80;
     }
     if(direction == 'down' && this.y < 400) {
-        this.y += 50;
+        this.y += 80;
     }
 };
 
