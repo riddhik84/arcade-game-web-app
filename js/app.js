@@ -1,5 +1,6 @@
-let game_score = 10;
+let game_score = 0;
 document.getElementById('gamescore').innerHTML = game_score;
+var img = new Image();
 
 // Enemies our player must avoid
 var Enemy = function(x, y) {
@@ -11,6 +12,7 @@ var Enemy = function(x, y) {
     this.sprite = 'images/enemy-bug.png';
     this.x = x;
     this.y = y;
+    this.speed = Math.floor((Math.random() * 300 + 100));
 };
 
 // Update the enemy's position, required method for game
@@ -19,14 +21,17 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    if (this.x < 505) {
-        this.x += (150 * dt);
+    if (this.x < 550) {
+        this.x += this.speed * dt;
     }
-    else {this.x = -90;}
+    else {this.x = -190;}
 
-    if(this.x < player.x + 30 && this.x + 60 > player.x && this.y < player.y + 60 && this.y + 40 > player.y) {
-        score = 0;
-        document.getElementById('gamescore').innerHTML = score;
+    if(this.x < player.x + 30
+        && this.x + 60 > player.x
+        && this.y < player.y + 60
+        && this.y + 40 > player.y) {
+        game_score = 0;
+        document.getElementById('gamescore').innerHTML = game_score;
         player.reset();
     }
 };
@@ -40,9 +45,9 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 var Player = function () {
-    this.sprite = 'images/char-boy.png';
+    this.sprite = 'images/char-cat-girl.png';
     this.x = 200;
-    this.y = 320;
+    this.y = 420;
 };
 
 // Is called every time the player position is updated
@@ -50,8 +55,8 @@ Player.prototype.update = function() {
 
     // If the player reaches the water
     if (player.y < 20) {
-    score++;
-    document.getElementById('playerScore').innerHTML = score;
+    game_score++;
+    document.getElementById('gamescore').innerHTML = game_score;
     this.reset();
 }
 };
@@ -77,7 +82,7 @@ Player.prototype.handleInput = function(direction) {
 
 Player.prototype.reset = function() {
     this.x = 200;
-    this.y = 320;
+    this.y = 420;
 };
 
 // Now instantiate your objects.
@@ -92,7 +97,6 @@ var enemy6 = new Enemy(-890, 230);
 var allEnemies = [enemy1, enemy2, enemy3, enemy4, enemy5, enemy6];
 // Place the player object in a variable called player
 var player = new Player();
-
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
