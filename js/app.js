@@ -24,7 +24,7 @@ Enemy.prototype.update = function(dt) {
     if (this.x < 550) {
         this.x += this.speed * dt;
     }
-    else {this.x = -190;}
+    else {this.x = -100;}
 
     if(this.x < player.x + 30
         && this.x + 60 > player.x
